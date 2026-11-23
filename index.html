@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto-grader agent — rubric grades with evidence, and appeals</title>
+<meta name="description" content="Grade essays and code against a rubric, with a quoted line of evidence for every point — and an appeal process that shows its work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Gradebook <span>/ auto-grader agent</span></div>
+    <nav class="nav" id="nav" aria-label="Sections">
+      <button data-view="grade" class="active">Grade</button>
+      <button data-view="submissions">Submissions</button>
+      <button data-view="rubrics">Rubrics</button>
+      <button data-view="appeals">Appeals</button>
+      <button data-view="settings">Settings</button>
+    </nav>
+    <span class="key-pill" id="keyPill">No API key saved</span>
+  </div>
+</header>
+<main class="wrap" id="view"></main>
+<footer>
+  Scores are model judgements, not ground truth. Every grade shows its rubric, its evidence
+  quote, and its appeal trail. Data is stored in this browser only (localStorage).
+  Built by Sivasai Boggu, 2026.
+</footer>
+<script src="logic.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
