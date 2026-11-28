@@ -548,6 +548,7 @@
     var exportBtn = document.getElementById('exportBtn');
     if (exportBtn) exportBtn.addEventListener('click', function () {
       var sub = submissionById(ui.selectedId);
+      if (!sub || !sub.grade) { showError('Nothing to export yet — this submission has no grade. Grade it first, or open a seeded submission.'); return; }
       var rubric = rubricById(sub.rubricId);
       var md = L.exportMarkdown(sub, sub.grade, rubric, appealsFor(sub.id));
       var blob = new Blob([md], { type: 'text/markdown' });
@@ -626,6 +627,7 @@
     var exportBtn = document.getElementById('exportBtn2');
     if (exportBtn) exportBtn.addEventListener('click', function () {
       var sub = submissionById(ui.detailId);
+      if (!sub || !sub.grade) { showError('Nothing to export yet — this submission has no grade. Grade it first, or open a seeded submission.'); return; }
       var md = L.exportMarkdown(sub, sub.grade, rubricById(sub.rubricId), appealsFor(sub.id));
       var blob = new Blob([md], { type: 'text/markdown' });
       var a = document.createElement('a');
@@ -689,7 +691,8 @@
       var el = document.getElementById('rbStatus');
       if (!el) return;
       var sum = criteria.reduce(function (a, c) { return a + (Number(c.weight) || 0); }, 0);
-      el.textContent = 'Weights add up to ' + sum + '%' + (sum === 100 ? ' — ready to save.' : ' — must be 100% to save.');
+      var shown = Math.round(sum * 100) / 100;
+      el.textContent = 'Weights add up to ' + shown + '%' + (Math.abs(sum - 100) < 1e-9 ? ' — ready to save.' : ' — must be 100% to save.');
     }
     renderCriteria();
     document.getElementById('rbAddCrit').addEventListener('click', function () {

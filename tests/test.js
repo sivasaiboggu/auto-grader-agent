@@ -33,6 +33,17 @@ test('validateWeights: 25+30+25+20 sums to 100', () => {
   assert.equal(L.validateWeights(RUBRIC.criteria), true);
 });
 
+test('validateWeights: decimal weights that sum to 100 in decimal pass (float-safe)', () => {
+  // 0.01 + 64.04 + 35.95 is 100.00000000000001 in binary float, so an exact
+  // === 100 check would wrongly block saving this rubric.
+  const decimal = [
+    { id: 'a', name: 'A', weight: 0.01, maxPoints: 10 },
+    { id: 'b', name: 'B', weight: 64.04, maxPoints: 10 },
+    { id: 'c', name: 'C', weight: 35.95, maxPoints: 10 }
+  ];
+  assert.equal(L.validateWeights(decimal), true);
+});
+
 test('validateWeights: 90 does not sum to 100', () => {
   const bad = RUBRIC.criteria.map(c => ({ ...c }));
   bad[0].weight = 15;

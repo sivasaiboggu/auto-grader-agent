@@ -21,7 +21,7 @@
       if (!isFinite(w) || w <= 0) return false;
       sum += w;
     }
-    return sum === 100;
+    return Math.abs(sum - 100) < 1e-9; // exact === fails on decimal weights: 0.01+64.04+35.95 is 100.00000000000001 in float
   }
 
   function bandFor(percent) {
